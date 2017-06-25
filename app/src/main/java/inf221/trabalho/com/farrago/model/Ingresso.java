@@ -5,8 +5,6 @@ import com.orm.SugarRecord;
 
 import java.io.Serializable;
 
-import inf221.trabalho.com.farrago.modelBKP.Evento;
-import inf221.trabalho.com.farrago.modelBKP.Vendedor;
 
 public class Ingresso extends SugarRecord implements Serializable {
 

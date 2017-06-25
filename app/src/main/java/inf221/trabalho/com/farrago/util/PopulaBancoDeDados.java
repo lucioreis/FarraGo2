@@ -58,6 +58,7 @@ public class PopulaBancoDeDados {
             organizador.setCNPJ(geraIntAleatorio());
             organizador.setEndereco(geraStringAleatoria());
         }
+        return null;
     }
 
 }

@@ -3,8 +3,6 @@ package inf221.trabalho.com.farrago.model;
 import com.orm.SugarContext;
 import com.orm.SugarRecord;
 
-import inf221.trabalho.com.farrago.modelBKP.Perfil;
-
 public class Organizador extends SugarRecord {
 
 	private String nomeFantasia;
