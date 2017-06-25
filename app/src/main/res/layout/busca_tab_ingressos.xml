@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Filtrar Por:"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold|italic" />
+
+    <Spinner
+        android:id="@+id/spinner_busca_cidade_tabIngresso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        />
+
+    <Spinner
+        android:id="@+id/spinner_busca_evento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reputação dos Vendedores"/>
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Distância"/>
+
+    <ImageButton
+        android:id="@+id/buscar_ingresso_btn"
+        android:layout_width="144dp"
+        android:layout_height="53dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorWhite"
+        android:scaleType="centerCrop"
+        android:src="@drawable/button_buscar_2" />
+
+</LinearLayout>

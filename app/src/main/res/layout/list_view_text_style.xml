@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/text_to_list_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/FarraGoTexto"
+    />-->
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imagem_da_list_view"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ticket"
+            android:layout_gravity="end"/>
+
+        <TextView
+        android:id="@+id/texto_da_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/FarraGoTexto"/>
+
+    </LinearLayout>
+

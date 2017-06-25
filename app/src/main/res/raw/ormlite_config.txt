@@ -1,0 +1,133 @@
+# --table-start--
+dataClass=inf221.trabalho.com.farrago.modelBKP.Ingresso
+tableName=TabIngresso
+# --table-fields-start--
+# --field-start--
+fieldName=idIngresso
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=evento
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=vendedor
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=numero
+# --field-end--
+# --field-start--
+fieldName=lote
+# --field-end--
+# --field-start--
+fieldName=preco
+# --field-end--
+# --field-start--
+fieldName=cidade
+# --field-end--
+# --field-start--
+fieldName=tipoDeIngresso
+# --field-end--
+# --field-start--
+fieldName=disponivel
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+
+#################################
+# --table-start--
+dataClass=inf221.trabalho.com.farrago.modelBKP.Evento
+tableName=TabEvento
+# --table-fields-start--
+# --field-start--
+fieldName=idEvento
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=nomeDoEvento
+# --field-end--
+# --field-start--
+fieldName=cidade
+# --field-end--
+# --field-start--
+fieldName=data
+# --field-end--
+# --field-start--
+fieldName=horario
+# --field-end--
+# --field-start--
+fieldName=faixaEtaria
+# --field-end--
+# --field-start--
+fieldName=ingresso
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=numeroDeIngressos
+# --field-end--
+# --field-start--
+fieldName=tag
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+
+#################################
+# --table-start--
+dataClass=inf221.trabalho.com.farrago.modelBKP.CompradorIngresso
+tableName=TabCompradorIngresso
+# --table-fields-start--
+# --field-start--
+fieldName=idCompradorIngresso
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=comprador
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=ingresso
+foreign=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+
+#################################
+# --table-start--
+dataClass=inf221.trabalho.com.farrago.modelBKP.Comprador1
+tableName=TabComprador
+# --table-fields-start--
+# --field-start--
+fieldName=idComprador
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=cpf
+unique=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+
+#################################
+# --table-start--
+dataClass=inf221.trabalho.com.farrago.modelBKP.Vendedor
+tableName=TabVendedor
+# --table-fields-start--
+# --field-start--
+fieldName=idVendedor
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=cpf
+unique=true
+# --field-end--
+# --field-start--
+fieldName=avaliacao
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

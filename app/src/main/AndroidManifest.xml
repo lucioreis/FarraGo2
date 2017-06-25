@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="inf221.trabalho.com.farrago">
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:name="com.orm.SugarApp"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data android:name="DATABASE" android:value="FarraGo.db" />
+        <meta-data android:name="VERSION" android:value="2" />
+        <meta-data android:name="QUERY_LOG" android:value="true" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="inf221.trabalho.com.farrago.model" />
+        <activity
+            android:name=".controller.CompradorTelaPrincipal"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".controller.MeusIngressos"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".controller.Pagamento" />
+        <activity android:name=".controller.ResultadoDaBusca" />
+        <activity
+            android:name=".controller.ComprarIngresso"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controller.Busca"
+            android:label="@string/title_activity_busca"
+            android:theme="@style/AppTheme.NoActionBar" />
+    </application>
+
+</manifest>

@@ -1,0 +1,90 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:weightSum="1">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="213dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/festa1"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="235dp"
+        android:layout_height="33dp"
+        android:layout_margin="10dp"
+        android:text="Comprar Ingresso"
+        android:textColor="@color/colorBlack"
+        android:layout_gravity="center_horizontal"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        style="@style/FarraGoSubTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Festa:"
+        />
+
+    <TextView
+        android:id="@+id/nome_da_festa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/FarraGoTexto"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/FarraGoSubTitulo"
+        android:text="Local:"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/FarraGoTexto"
+        android:id="@+id/local_da_festa"/>
+
+    <TextView
+        android:id="@+id/data_da_festa"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        style="@style/FarraGoTexto" />
+
+    <TextView
+        android:id="@+id/hora_da_festa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/FarraGoTexto"
+        />
+
+    <TextView
+        android:id="@+id/valor_do_ingresso"
+        style="@style/FarraGoTexto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/faixa_etaria_da_festa"
+        style="@style/FarraGoTexto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/FarraGoTexto"
+        android:id="@+id/ingressos_disponiveis"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/button_comprar"
+        android:onClick="efetuarCompra"/>
+
+</LinearLayout>
