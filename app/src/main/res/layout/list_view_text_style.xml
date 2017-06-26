@@ -10,7 +10,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_weight="1">
 
         <ImageView
             android:id="@+id/imagem_da_list_view"
@@ -18,12 +19,15 @@
             android:layout_height="50sp"
             android:scaleType="centerInside"
             android:src="@drawable/ticket"
+            android:layout_weight="0.1"
             android:layout_gravity="end"/>
 
         <TextView
-        android:id="@+id/texto_da_list_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            android:id="@+id/texto_da_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50sp"
+            android:layout_weight="0.9"
         style="@style/FarraGoTexto"/>
 
     </LinearLayout>

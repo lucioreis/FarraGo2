@@ -8,40 +8,27 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.orm.SchemaGenerator;
-import com.orm.SugarApp;
-import com.orm.SugarContext;
-import com.orm.SugarDb;
-
 import java.sql.Date;
 import java.sql.Time;
 
 import inf221.trabalho.com.farrago.R;
-import inf221.trabalho.com.farrago.modelBKP.Evento;
+import inf221.trabalho.com.farrago.model.Evento;
+import inf221.trabalho.com.farrago.model.FachadaSingleton;
 
 public class ComprarIngresso extends AppCompatActivity {
     private Evento evento;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FachadaSingleton fachadaSingleton = FachadaSingleton.getInstance();
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_comprar_ingresso);
         Intent it = getIntent();
-        evento = (Evento) it.getSerializableExtra("evento");
-        if(evento == null){
-            evento = new Evento();
-            evento.setData(new Date(11,11,11));
-            evento.setFaixaEtaria(11);
-            evento.setHorario(new Time(11,11,11));
-            //evento.cadastraIngressos(11,11f,11,11);
-            evento.setLocal("Casa da Muriel");
-            evento.setNumeroDeIngressos(123);
-        }
+        evento = (Evento) fachadaSingleton.findById(Evento.class, it.getLongExtra("eventoId", 0L));
         ((TextView) findViewById(R.id.nome_da_festa)).setText(evento.getNomeDoEvento());
         ((TextView) findViewById(R.id.data_da_festa)).setText("Data: " + evento.getData().toString());
         ((TextView) findViewById(R.id.local_da_festa)).setText(evento.getLocal());
         ((TextView) findViewById(R.id.hora_da_festa)).setText("Hora: " + evento.getHorario().toString());
-        ((TextView) findViewById(R.id.valor_do_ingresso)).setText("Preço: " + evento.getIngresso().getPreco().toString());
+        ((TextView) findViewById(R.id.valor_do_ingresso)).setText("Preço: " + evento.getIngresso().getId());
         ((TextView) findViewById(R.id.faixa_etaria_da_festa)).setText("Faixa Etária: " + ((Integer) evento.getFaixaEtaria()).toString());
         ((TextView) findViewById(R.id.ingressos_disponiveis)).setText("Ingressos disponiveis: " + evento.getNumeroDeIngressos());
     }
@@ -49,7 +36,7 @@ public class ComprarIngresso extends AppCompatActivity {
     public void efetuarCompra(View v){
         Intent it = new Intent(this, Pagamento.class);
         if(evento != null)
-            it.putExtra("evento", evento);
+            it.putExtra("eventoId", evento.getId());
         startActivity(it);
         finish();
     }

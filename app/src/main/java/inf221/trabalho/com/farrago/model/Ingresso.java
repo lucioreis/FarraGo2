@@ -1,141 +1,186 @@
 package inf221.trabalho.com.farrago.model;
 
 import com.j256.ormlite.field.DatabaseField;
-import com.orm.SugarRecord;
+
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Index;
+import org.greenrobot.greendao.annotation.Property;
+import org.greenrobot.greendao.annotation.ToOne;
 
 import java.io.Serializable;
+import org.greenrobot.greendao.DaoException;
+
+@Entity
+public class Ingresso implements Serializable {
+    static final long serialVersionUID = 536871008;
+    @Id(autoincrement = true)
+    private Long id;
+    private Long compradorId;
+    @Property
+    public String nomeDoEvento;
+    @Property
+    private long numero;
+    @Property
+    private int lote;
+    @Property
+    private float preco;
+    @Property
+    private float qrCode;
+    @Property
+    private String cidade;
+    @Property
+    private int tipoDeIngresso;
+
+    // 0 -> ingresso do organizador | 1 -> ingresso vendedor
 
 
-public class Ingresso extends SugarRecord implements Serializable {
+    public void setNumero(long numero) {
+        this.numero = numero;
+    }
 
-	public int idIngresso;
-	public Evento evento;
-	private Vendedor vendedor;
-	private int numero;
-	private int lote;
-	private float preco;
+    public void setLote(int lote) {
+        this.lote = lote;
+    }
 
-	public void setIdIngresso(int idIngresso) {
-		this.idIngresso = idIngresso;
-	}
+    public void setPreco(float preco) {
+        this.preco = preco;
+    }
 
-	public void setVendedor(Vendedor vendedor) {
-		this.vendedor = vendedor;
-	}
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
 
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
 
-	public void setLote(int lote) {
-		this.lote = lote;
-	}
+    public String getCidade() {
+        return cidade;
+    }
 
-	public void setPreco(float preco) {
-		this.preco = preco;
-	}
+    public boolean isDisponivel() {
+        return disponivel;
+    }
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
 
-	public void setDisponivel(boolean disponivel) {
-		this.disponivel = disponivel;
-	}
+    private boolean disponivel;
+    public Ingresso() {
+    }
 
-	public int getIdIngresso() {
-		return idIngresso;
-	}
+    public Ingresso(Evento ev, Vendedor ven, int num, int lt, float pr, String cid, int tpI, boolean disp) {
+        this.nomeDoEvento = ev.getNomeDoEvento();
+        this.numero = num;
+        this.lote = lt;
+        this.preco = pr;
+        this.cidade = cid;
+        this.tipoDeIngresso = tpI;
+        this.disponivel = disp;
+    }
 
-	public Vendedor getVendedor() {
-		return vendedor;
-	}
+    @Generated(hash = 586174113)
+    public Ingresso(Long id, Long compradorId, String nomeDoEvento, long numero, int lote, float preco,
+            float qrCode, String cidade, int tipoDeIngresso, boolean disponivel) {
+        this.id = id;
+        this.compradorId = compradorId;
+        this.nomeDoEvento = nomeDoEvento;
+        this.numero = numero;
+        this.lote = lote;
+        this.preco = preco;
+        this.qrCode = qrCode;
+        this.cidade = cidade;
+        this.tipoDeIngresso = tipoDeIngresso;
+        this.disponivel = disponivel;
+    }
 
-	public String getCidade() {
-		return cidade;
-	}
+    public String getNomeDoEvento() {
+        return nomeDoEvento;
+    }
 
-	public boolean isDisponivel() {
-		return disponivel;
-	}
+    public void setNomeDoEvento(Evento e) {
+        nomeDoEvento = e.getNomeDoEvento();
+    }
 
-	private String cidade;
 
-	private int tipoDeIngresso;
-	// 0 -> ingresso do organizador | 1 -> ingresso vendedor
+    public long getNumero() {
+        return this.numero;
+    }
 
-	private boolean disponivel;
+    /**
+     * @param numero
+     */
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
 
-	public Ingresso() {}
+    public Float getPreco() {
+        return this.preco;
+    }
 
-	public Ingresso(Evento ev, Vendedor ven, int num, int lt, float pr, String cid, int tpI, boolean disp) {
-		this.evento = ev;
-		this.vendedor = ven;
-		this.numero = num;
-		this.lote = lt;
-		this.preco = pr;
-		this.cidade = cid;
-		this.tipoDeIngresso = tpI;
-		this.disponivel = disp;
-	}
+    /**
+     * @param preco
+     */
+    public void setPreco(Float preco) {
+        this.preco = preco;
+    }
 
-	public void setEvento(Evento e){
-		evento = e;
-	}
-	public Evento getEvento(){
-		return evento;
-	}
+    public Integer getLote() {
+        return this.lote;
+    }
 
-	public Integer getNumero() {
-		return this.numero;
-	}
+    /**
+     * @param lote
+     */
+    public void setLote(Integer lote) {
+        this.lote = lote;
+    }
 
-	/**
-	 *
-	 * @param numero
-	 */
-	public void setNumero(Integer numero) {
-		this.numero = numero;
-	}
+    public int getTipoDeIngresso() {
+        return this.tipoDeIngresso;
+    }
 
-	public Float getPreco() {
-		return this.preco;
-	}
+    /**
+     * @param tipoDeIngresso
+     */
+    public void setTipoDeIngresso(int tipoDeIngresso) {
+        this.tipoDeIngresso = tipoDeIngresso;
+    }
 
-	/**
-	 *
-	 * @param preco
-	 */
-	public void setPreco(Float preco) {
-		this.preco = preco;
-	}
+    public float getQrCode() {
+        return qrCode;
+    }
 
-	public Integer getLote() {
-		return this.lote;
-	}
+    public void setQrCode(float qrCode) {
+        this.qrCode = qrCode;
+    }
 
-	/**
-	 *
-	 * @param lote
-	 */
-	public void setLote(Integer lote) {
-		this.lote = lote;
-	}
+    public Long getId() {
+        return this.id;
+    }
 
-	public int getTipoDeIngresso() {
-		return this.tipoDeIngresso;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	/**
-	 *
-	 * @param tipoDeIngresso
-	 */
-	public void setTipoDeIngresso(int tipoDeIngresso) {
-		this.tipoDeIngresso = tipoDeIngresso;
-	}
+    public void setNomeDoEvento(String nomeDoEvento) {
+        this.nomeDoEvento = nomeDoEvento;
+    }
 
-	@Override
-	public String toString(){
-		return evento.getNomeDoEvento();
-	}
+    public boolean getDisponivel() {
+        return this.disponivel;
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getCompradorId() {
+        return this.compradorId;
+    }
+
+    public void setCompradorId(Long compradorId) {
+        this.compradorId = compradorId;
+    }
 }

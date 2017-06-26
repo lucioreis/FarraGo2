@@ -1,5 +1,6 @@
 package inf221.trabalho.com.farrago.controller;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,14 +9,22 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.j256.ormlite.stmt.query.In;
+
 import inf221.trabalho.com.farrago.R;
 import inf221.trabalho.com.farrago.model.Comprador;
+import inf221.trabalho.com.farrago.model.CompradorDao;
 import inf221.trabalho.com.farrago.model.Evento;
 import inf221.trabalho.com.farrago.model.FachadaSingleton;
+import inf221.trabalho.com.farrago.model.Ingresso;
+import inf221.trabalho.com.farrago.model.Organizador;
+import inf221.trabalho.com.farrago.util.MyApp;
 
 public class Pagamento extends FragmentActivity {
 
@@ -85,9 +94,10 @@ public class Pagamento extends FragmentActivity {
             return inflater.inflate(R.layout.fragment_busca, container, false);
         }
     }
-
+    @SuppressLint("ValidFragment")
     public static class DefineLayoutToTabs extends Fragment {
         private int resource;
+        @SuppressLint("ValidFragment")
         public DefineLayoutToTabs(int res){
             resource = res;
         }
@@ -141,13 +151,15 @@ public class Pagamento extends FragmentActivity {
     }
 
     public void efetuarCompraCartao(View v){
-        Comprador comprador = fachadaSingleton.getComprador() ;
-        Evento evento = (Evento) it.getSerializableExtra("evento");
-        if(evento != null) {
-            comprador.addIngresso(evento.getIngresso());
-            evento.decrementaNumeroDeIngressos();
-            comprador.update();
-        }
+        Comprador comprador = fachadaSingleton.getComprador();
+        Evento evento = (Evento) fachadaSingleton.findById(Evento.class, getIntent().getLongExtra("eventoId", 0));
+        Ingresso ingresso = evento.getIngresso();
+        ingresso.setCompradorId(comprador.getId());
+        comprador.addIngresso(ingresso);
+        fachadaSingleton.save(comprador);
+         evento.setNumeroDeIngressos(evento.getNumeroDeIngressos()-1);
+        fachadaSingleton.save(evento);
+        Log.i("errouiop", comprador.getMeusIngressos().toString());
         Toast.makeText(this, "Compra realizada com sucesso", Toast.LENGTH_LONG).show();
         Intent it2 = new Intent(this, CompradorTelaPrincipal.class);
         it2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

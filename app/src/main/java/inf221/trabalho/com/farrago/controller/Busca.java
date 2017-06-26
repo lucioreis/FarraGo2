@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,13 +61,19 @@ public class Busca extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         nomeDeCidades = new ArrayList<>();
+        nomeDeCidades.add("Cidade");
         nomeDeCidades.addAll(fachadaSingleton.getListaDeCidades());
         nomeDeCidades.add("Viçosa");
         nomeDeCidades.add("Acapulco");
-        arrayCidade = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, new String[]{"Cidade", "Viçosa", "Acapulco", "Pindamonhangaba"});
+        arrayCidade = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, nomeDeCidades);
         nomeDeCidades.add("bebida liberada");
-        arrayTag = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, fachadaSingleton.getListaDeTags());
-        arrayTema = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, fachadaSingleton.getListaDeTags());
+        ArrayList<String> tags = new ArrayList<>();
+        tags.add("Tag");
+        tags.addAll(fachadaSingleton.getListaDeTags());
+        ArrayList<String> temas = new ArrayList<>();
+        temas.add("Tema");
+        arrayTag = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, tags);
+        arrayTema = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, temas);
         arrayFaixa = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, new String[]{"Faixa Etária", "até 10", "10-14", "14-16", "16-18", "18 ou mais"});
     }
 
@@ -79,10 +86,19 @@ public class Busca extends AppCompatActivity {
         Spinner spinTema = (Spinner) findViewById(R.id.spinner_busca_tema);
         Spinner spinTag  = (Spinner) findViewById(R.id.spinner_busca_tag);
         EditText editText = (EditText) findViewById(R.id.texto_de_pesquisa);
-        fachadaSingleton.setSearchFiltro(editText.getText().toString() ,(String) spinCidadeEvento.getSelectedItem()
-        ,(String)  spinTema.getSelectedItem(),(String)  spinTag.getSelectedItem());
-        startActivity(new Intent(this, ResultadoDaBusca.class));
+        String padrao = editText.getText().toString();
+        String cidade = (String) spinCidadeEvento.getSelectedItem();
+        if(cidade.equals("Cidade")) cidade = "";
+        String tema = (String)  spinTema.getSelectedItem();
+        if(tema.equals("Tema")) tema = "";
+        String tag = (String) spinTag.getSelectedItem();
+        if(tag.equals("Tag")) tag = "";
+        Log.i("errouiop", padrao +" "+ cidade +" "+ tema +" "+ tag);
+
+        fachadaSingleton.setSearchFiltro(padrao,cidade, tema, tag);
         fachadaSingleton.search();
+        startActivity(new Intent(this, ResultadoDaBusca.class));
+
 
     }
 

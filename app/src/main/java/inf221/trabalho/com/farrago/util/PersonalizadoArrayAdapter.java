@@ -10,8 +10,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import inf221.trabalho.com.farrago.R;
-import inf221.trabalho.com.farrago.modelBKP.Evento;
-import inf221.trabalho.com.farrago.modelBKP.Ingresso;
+import inf221.trabalho.com.farrago.model.Comprador;
+import inf221.trabalho.com.farrago.model.Evento;
+import inf221.trabalho.com.farrago.model.Ingresso;
 
 /**
  * Created by lucio on 6/23/2017.
@@ -59,12 +60,12 @@ public class PersonalizadoArrayAdapter extends BaseAdapter {
             view = convertView;
             holder = (ViewHolder) view.getTag();
         }
-        if(objetos.get(position) instanceof Ingresso){
+        if(objetos.get(position) instanceof Ingresso) {
             Ingresso ingresso = (Ingresso) objetos.get(position);
             holder.imageView.setImageResource(R.drawable.ticket);
-            holder.textView.setText(ingresso.getEvento().getNomeDoEvento());
+            holder.textView.setText(ingresso.getNomeDoEvento());
             return view;
-        } else {
+        }else {
             Evento evento = (Evento) objetos.get(position);
             holder.imageView.setImageResource(R.drawable.festa_icone);
             holder.textView.setText(evento.getNomeDoEvento());
