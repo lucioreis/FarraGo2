@@ -30,16 +30,17 @@ public class Comprador {
        public static class GreenConverter implements PropertyConverter<List<Ingresso>, String> {
         @Override
         public List<Ingresso> convertToEntityProperty(String databaseValue) {
+            FachadaSingleton fachadaSingleton = FachadaSingleton.getInstance();
             if (databaseValue == null) {
                 return null;
             }
             else {
-                List<String> lista = Arrays.asList(databaseValue.split(";"));
+                List<String> lista = Arrays.asList(databaseValue.split(","));
                 List<Ingresso> list = new ArrayList<>();
                 for(String l: lista){
-                    String[] prop = l.split(",");
-                        Ingresso j = new Ingresso();
-                        j.setId(Long.valueOf(prop[0]));
+                    //String[] prop = l.split(",");
+                        Ingresso j = fachadaSingleton.findIngressoPrId(Long.valueOf(l));
+                        /*j.setId(Long.valueOf(prop[0]));
                         j.setCidade(prop[1]);
                         j.setCompradorId(Long.valueOf(prop[2]));
                         j.setDisponivel(Boolean.valueOf(prop[3]));
@@ -48,7 +49,7 @@ public class Comprador {
                         j.setNumero(Integer.valueOf(prop[6]));
                         j.setPreco(Float.valueOf(prop[7]));
                         j.setQrCode(Float.valueOf(prop[8]));
-                        j.setTipoDeIngresso(Integer.valueOf(prop[9]));
+                        j.setTipoDeIngresso(Integer.valueOf(prop[9]));*/
                         list.add(j);
                 }
                 Log.i("error", ""+list.get(0));
@@ -65,7 +66,7 @@ public class Comprador {
                 StringBuilder sb = new StringBuilder();
                 for( Ingresso j : entityProperty){
                     sb.append(j.getId()).append(",");
-                    sb.append(j.getCidade()).append(",");
+                   /* sb.append(j.getCidade()).append(",");
                     sb.append(j.getCompradorId()).append(",");
                     sb.append(j.getDisponivel()).append(",");
                     sb.append(j.getLote()).append(",");
@@ -74,8 +75,7 @@ public class Comprador {
                     sb.append(j.getPreco()).append(",");
                     sb.append(j.getQrCode()).append(",");
                     sb.append(j.getTipoDeIngresso());
-                    sb.append(";");
-
+                    sb.append(";")*/;
                 }
                 return sb.toString();
             }

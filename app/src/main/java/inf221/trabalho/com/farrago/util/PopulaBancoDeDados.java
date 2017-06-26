@@ -95,7 +95,7 @@ public class PopulaBancoDeDados {
             evento.setNumeroDeIngressos(geraIntAleatorio()*23);
             evento.setData(new Date(geraIntAleatorio(), geraIntAleatorio(), geraIntAleatorio()).toString());
             evento.setHorario(new Time(SystemClock.elapsedRealtime()).toString());
-            evento.setCidade((geraStringAleatoria()));
+            evento.setCidade(cidadeAleatoriaDeUmBanco());
             evento.setFaixaEtaria(geraIntAleatorio());
             evento.setTag(stringAleatoriaDeUmBanco());
             evento.setTema(stringAleatoriaDeUmBanco());

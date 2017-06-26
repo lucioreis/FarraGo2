@@ -8,6 +8,9 @@ import android.util.Log;
 import com.j256.ormlite.stmt.query.In;
 
 import org.greenrobot.greendao.annotation.Property;
+import org.greenrobot.greendao.query.Query;
+import org.greenrobot.greendao.query.QueryBuilder;
+import org.greenrobot.greendao.query.WhereCondition;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -103,6 +106,11 @@ public final class FachadaSingleton extends Activity{
         return daoSession.getDao(c).loadByRowId(id);
     }
 
+    public Ingresso findIngressoPrId(Long id) {
+        IngressoDao  ingressoDao = daoSession.getIngressoDao();
+        return ingressoDao.loadByRowId(id);
+    }
+
     private enum Filtro {
          CIDADE(1), DATA(4), TAG(2), TEMA(3), PADRAO(0);
          private final int i;
@@ -127,11 +135,11 @@ public final class FachadaSingleton extends Activity{
          String whereClause = "";
          if(resultadosDaBuscaPorEventos == null) resultadosDaBuscaPorEventos = new ArrayList<Evento>();
          if(!resultadosDaBuscaPorEventos.isEmpty()) resultadosDaBuscaPorEventos.clear();
-
+         QueryBuilder<Evento> qb;
          if(!filtros[Filtro.PADRAO.getI()].isEmpty())
-             whereClause += "nome_do_evento = ?";
+           // qb.where(EventoDao.Properties.NomeDoEvento.eq(filtros[Filtro.PADRAO.getI()]));
          if (!filtros[Filtro.CIDADE.getI()].isEmpty())
-             whereClause += "cidade = ? ";
+           // qb.and(1, qb.where(EventoDao.Properties.NomeDoEvento.eq(filtros[Filtro.PADRAO.getI()])));
          if (!filtros[Filtro.DATA.getI()].isEmpty())
              whereClause += "data = ? ";
          if (!filtros[Filtro.TAG.getI()].isEmpty())
@@ -140,7 +148,16 @@ public final class FachadaSingleton extends Activity{
              whereClause += "tema = ? ";
          Log.i("errou", ""+filtros[0]);
          resultadosDaBuscaPorEventos = daoSession.getEventoDao().loadAll();
-        // resultadosDaBuscaPorEventos = daoSession.getEventoDao().queryBuilder().where(EventoDao.Properties.NomeDoEvento.eq(filtros[0])).list();
+         EventoDao eventoDao = daoSession.getEventoDao();
+         QueryBuilder.LOG_SQL = true;
+         QueryBuilder.LOG_VALUES = true;
+         QueryBuilder<Evento> query = eventoDao.queryBuilder().where(EventoDao.Properties.Cidade.eq("Ponte Nova"));
+//         qb.or(Properties.YearOfBirth.gt(1970),
+//                         qb.and(Properties.YearOfBirth.eq(1970), Properties.MonthOfBirth.ge(10))));
+         //resultadosDaBuscaPorEventos = query.list();//daoSession.getEventoDao().queryBuilder()
+         Log.i("tamanho",query.list().size()+ ""+resultadosDaBuscaPorEventos.size()+"  "+filtros[0]);
+//                 .where(EventoDao.Properties.NomeDoEvento.eq(filtros[0]))
+//                 .list();
      }
     public void searchUpdate(){
         resultadosDaBuscaPorEventos.clear();
