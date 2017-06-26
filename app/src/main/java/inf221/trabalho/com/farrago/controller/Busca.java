@@ -16,13 +16,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import inf221.trabalho.com.farrago.R;
-import inf221.trabalho.com.farrago.model.FachadaSingleton;
+import inf221.trabalho.com.farrago.model.Helper;
 
 public class Busca extends AppCompatActivity {
 
@@ -34,7 +33,7 @@ public class Busca extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private  FachadaSingleton fachadaSingleton;
+    private Helper helper;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private List<String> nomeDeCidades;
     private static  ArrayAdapter<String> arrayCidade, arrayTag, arrayTema, arrayFaixa;
@@ -54,7 +53,7 @@ public class Busca extends AppCompatActivity {
         //spinner = (Spinner) findViewById(R.id.spinner_busca_cidade);
         //TODO = Crregar lista de cidade s do banco de dados
        // Set up the ViewPager with the sections adapter.
-        fachadaSingleton = FachadaSingleton.getInstance();
+        helper = Helper.getInstance();
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -62,14 +61,14 @@ public class Busca extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
         nomeDeCidades = new ArrayList<>();
         nomeDeCidades.add("Cidade");
-        nomeDeCidades.addAll(fachadaSingleton.getListaDeCidades());
+        nomeDeCidades.addAll(helper.getListaDeCidades());
         nomeDeCidades.add("Viçosa");
         nomeDeCidades.add("Acapulco");
         arrayCidade = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, nomeDeCidades);
         nomeDeCidades.add("bebida liberada");
         ArrayList<String> tags = new ArrayList<>();
         tags.add("Tag");
-        tags.addAll(fachadaSingleton.getListaDeTags());
+        tags.addAll(helper.getListaDeTags());
         ArrayList<String> temas = new ArrayList<>();
         temas.add("Tema");
         arrayTag = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, tags);
@@ -95,8 +94,8 @@ public class Busca extends AppCompatActivity {
         if(tag.equals("Tag")) tag = "";
         Log.i("errouiop", padrao +" "+ cidade +" "+ tema +" "+ tag);
 
-        fachadaSingleton.setSearchFiltro(padrao,cidade,null,null);
-        fachadaSingleton.search();
+        helper.setSearchFiltro(padrao,cidade,null,null);
+        helper.search();
         startActivity(new Intent(this, ResultadoDaBusca.class));
 
 

@@ -15,21 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.j256.ormlite.stmt.query.In;
-
 import inf221.trabalho.com.farrago.R;
 import inf221.trabalho.com.farrago.model.Comprador;
-import inf221.trabalho.com.farrago.model.CompradorDao;
 import inf221.trabalho.com.farrago.model.Evento;
-import inf221.trabalho.com.farrago.model.FachadaSingleton;
+import inf221.trabalho.com.farrago.model.Helper;
 import inf221.trabalho.com.farrago.model.Ingresso;
-import inf221.trabalho.com.farrago.model.Organizador;
-import inf221.trabalho.com.farrago.util.MyApp;
 
 public class Pagamento extends FragmentActivity {
 
     private Intent it;
-    private FachadaSingleton fachadaSingleton = FachadaSingleton.getInstance();
+    private Helper helper = Helper.getInstance();
         /**
          * The {@link android.support.v4.view.PagerAdapter} that will provide
          * fragments for each of the sections. We use a
@@ -151,14 +146,14 @@ public class Pagamento extends FragmentActivity {
     }
 
     public void efetuarCompraCartao(View v){
-        Comprador comprador = fachadaSingleton.getComprador();
-        Evento evento = (Evento) fachadaSingleton.findById(Evento.class, getIntent().getLongExtra("eventoId", 0));
+        Comprador comprador = helper.getComprador();
+        Evento evento = (Evento) helper.findById(Evento.class, getIntent().getLongExtra("eventoId", 0));
         Ingresso ingresso = evento.getIngresso();
         ingresso.setCompradorId(comprador.getId());
         comprador.addIngresso(ingresso);
-        fachadaSingleton.save(comprador);
+        helper.save(comprador);
          evento.setNumeroDeIngressos(evento.getNumeroDeIngressos()-1);
-        fachadaSingleton.save(evento);
+        helper.save(evento);
         Log.i("errouiop", comprador.getMeusIngressos().toString());
         Toast.makeText(this, "Compra realizada com sucesso", Toast.LENGTH_LONG).show();
         Intent it2 = new Intent(this, CompradorTelaPrincipal.class);

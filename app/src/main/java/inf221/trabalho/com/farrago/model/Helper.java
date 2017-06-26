@@ -1,34 +1,24 @@
 package inf221.trabalho.com.farrago.model;
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.j256.ormlite.stmt.query.In;
-
-import org.greenrobot.greendao.annotation.Property;
-import org.greenrobot.greendao.query.Query;
 import org.greenrobot.greendao.query.QueryBuilder;
-import org.greenrobot.greendao.query.WhereCondition;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import inf221.trabalho.com.farrago.util.MyApp;
-import inf221.trabalho.com.farrago.util.PopulaBancoDeDados;
 
 
-
-public final class FachadaSingleton extends Activity{
-    private static final FachadaSingleton ourInst = new FachadaSingleton();
+public final class Helper extends Activity{
+    private static final Helper ourInst = new Helper();
 
     private String[] filtros;
     private List<Evento> resultadosDaBuscaPorEventos;
     private DaoSession daoSession;
 
-    private FachadaSingleton(){
+    private Helper(){
     }
 
 
@@ -90,7 +80,9 @@ public final class FachadaSingleton extends Activity{
     public ArrayList<String> getListaDeCidades(){
          ArrayList<String> elementos = new ArrayList<>();
          List<Evento> eventos = getListaDeEventos();
-         for( Evento e : eventos) elementos.add(e.getLocal());
+         for( Evento e : eventos) {
+             if(!elementos.contains(e.getCidade()))
+                elementos.add(e.getLocal());}
          return elementos;
      }
 
@@ -151,11 +143,18 @@ public final class FachadaSingleton extends Activity{
          EventoDao eventoDao = daoSession.getEventoDao();
          QueryBuilder.LOG_SQL = true;
          QueryBuilder.LOG_VALUES = true;
-         QueryBuilder<Evento> query = eventoDao.queryBuilder().where(EventoDao.Properties.Cidade.eq("Ponte Nova"));
+         Evento e = resultadosDaBuscaPorEventos.get(0);
+         for(Evento j: resultadosDaBuscaPorEventos){
+             if(j.getLocal().equals(e.getLocal()))
+                Log.i("cidade", j.getLocal());
+         }
+         QueryBuilder<Evento> query = eventoDao.queryBuilder().where(EventoDao.Properties.Cidade.eq(filtros[1]));
 //         qb.or(Properties.YearOfBirth.gt(1970),
 //                         qb.and(Properties.YearOfBirth.eq(1970), Properties.MonthOfBirth.ge(10))));
          //resultadosDaBuscaPorEventos = query.list();//daoSession.getEventoDao().queryBuilder()
-         Log.i("tamanho",query.list().size()+ ""+resultadosDaBuscaPorEventos.size()+"  "+filtros[0]);
+        // Log.i("tamanho",query.list().size()+ ""+resultadosDaBuscaPorEventos.size()+"  "+filtros[0]);
+         resultadosDaBuscaPorEventos = query.list();
+
 //                 .where(EventoDao.Properties.NomeDoEvento.eq(filtros[0]))
 //                 .list();
      }
@@ -166,10 +165,10 @@ public final class FachadaSingleton extends Activity{
      public List<Evento> getResultadosDaPesquisaPorEventos(){
          return resultadosDaBuscaPorEventos;
      }
-     public static FachadaSingleton getInstance(){
+     public static Helper getInstance(){
          return ourInst;
      }
-     public static FachadaSingleton init(MyApp myApp){
+     public static Helper init(MyApp myApp){
          ourInst.daoSession = myApp.getDaoSession();
          return  ourInst;
      }

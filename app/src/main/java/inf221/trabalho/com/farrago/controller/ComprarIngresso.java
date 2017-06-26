@@ -1,30 +1,25 @@
 package inf221.trabalho.com.farrago.controller;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.Date;
-import java.sql.Time;
-
 import inf221.trabalho.com.farrago.R;
 import inf221.trabalho.com.farrago.model.Evento;
-import inf221.trabalho.com.farrago.model.FachadaSingleton;
+import inf221.trabalho.com.farrago.model.Helper;
 
 public class ComprarIngresso extends AppCompatActivity {
     private Evento evento;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        FachadaSingleton fachadaSingleton = FachadaSingleton.getInstance();
+        Helper helper = Helper.getInstance();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comprar_ingresso);
         Intent it = getIntent();
-        evento = (Evento) fachadaSingleton.findById(Evento.class, it.getLongExtra("eventoId", 0L));
+        evento = (Evento) helper.findById(Evento.class, it.getLongExtra("eventoId", 0L));
         ((TextView) findViewById(R.id.nome_da_festa)).setText(evento.getNomeDoEvento());
         ((TextView) findViewById(R.id.data_da_festa)).setText("Data: " + evento.getData().toString());
         ((TextView) findViewById(R.id.local_da_festa)).setText(evento.getLocal());

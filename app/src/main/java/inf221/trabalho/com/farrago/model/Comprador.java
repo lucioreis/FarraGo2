@@ -2,27 +2,16 @@ package inf221.trabalho.com.farrago.model;
 
 import android.util.Log;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
-import com.j256.ormlite.stmt.query.In;
-
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.JoinEntity;
-import org.greenrobot.greendao.annotation.JoinProperty;
-import org.greenrobot.greendao.annotation.OrderBy;
 import org.greenrobot.greendao.annotation.Property;
-import org.greenrobot.greendao.annotation.ToMany;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import org.greenrobot.greendao.DaoException;
-import org.greenrobot.greendao.annotation.Unique;
+
 import org.greenrobot.greendao.converter.PropertyConverter;
 
 @Entity
@@ -30,7 +19,7 @@ public class Comprador {
        public static class GreenConverter implements PropertyConverter<List<Ingresso>, String> {
         @Override
         public List<Ingresso> convertToEntityProperty(String databaseValue) {
-            FachadaSingleton fachadaSingleton = FachadaSingleton.getInstance();
+            Helper helper = Helper.getInstance();
             if (databaseValue == null) {
                 return null;
             }
@@ -39,17 +28,7 @@ public class Comprador {
                 List<Ingresso> list = new ArrayList<>();
                 for(String l: lista){
                     //String[] prop = l.split(",");
-                        Ingresso j = fachadaSingleton.findIngressoPrId(Long.valueOf(l));
-                        /*j.setId(Long.valueOf(prop[0]));
-                        j.setCidade(prop[1]);
-                        j.setCompradorId(Long.valueOf(prop[2]));
-                        j.setDisponivel(Boolean.valueOf(prop[3]));
-                        j.setLote(Integer.valueOf(prop[4]));
-                        j.setNomeDoEvento(prop[5]);
-                        j.setNumero(Integer.valueOf(prop[6]));
-                        j.setPreco(Float.valueOf(prop[7]));
-                        j.setQrCode(Float.valueOf(prop[8]));
-                        j.setTipoDeIngresso(Integer.valueOf(prop[9]));*/
+                        Ingresso j = helper.findIngressoPrId(Long.valueOf(l));
                         list.add(j);
                 }
                 Log.i("error", ""+list.get(0));
@@ -66,16 +45,6 @@ public class Comprador {
                 StringBuilder sb = new StringBuilder();
                 for( Ingresso j : entityProperty){
                     sb.append(j.getId()).append(",");
-                   /* sb.append(j.getCidade()).append(",");
-                    sb.append(j.getCompradorId()).append(",");
-                    sb.append(j.getDisponivel()).append(",");
-                    sb.append(j.getLote()).append(",");
-                    sb.append(j.getNomeDoEvento()).append(",");
-                    sb.append(j.getNumero()).append(",");
-                    sb.append(j.getPreco()).append(",");
-                    sb.append(j.getQrCode()).append(",");
-                    sb.append(j.getTipoDeIngresso());
-                    sb.append(";")*/;
                 }
                 return sb.toString();
             }

@@ -9,10 +9,9 @@ import java.util.List;
 
 import inf221.trabalho.com.farrago.R;
 import inf221.trabalho.com.farrago.model.Evento;
-import inf221.trabalho.com.farrago.model.FachadaSingleton;
+import inf221.trabalho.com.farrago.model.Helper;
 import inf221.trabalho.com.farrago.model.Ingresso;
 import inf221.trabalho.com.farrago.model.Organizador;
-import inf221.trabalho.com.farrago.model.OrganizadorDao;
 import inf221.trabalho.com.farrago.model.Vendedor;
 
 /**
@@ -23,7 +22,7 @@ public class PopulaBancoDeDados {
     private Evento evento;
     private Organizador organizador;
     private Vendedor vendedor;
-    private FachadaSingleton fachadaSingleton = null;
+    private Helper helper = null;
 
     private static String geraStringAleatoria(){
         String retorno  = "";
@@ -47,28 +46,37 @@ public class PopulaBancoDeDados {
     }
 
     private static String cidadeAleatoriaDeUmBanco(){
-        String s[] = {"Ponte Nova", "Acapulco", "Itabirito", "Nova York", "Joao Monlevade", "Ubá", "São Paulo", "Ribeirão Preto", "Juíz deFora", "bola"};
-        int tamanho = geraIntAleatorio()%3 + 1;
+        return cidadeAleatoriaDeUmBanco(geraIntAleatorio()%3 + 1);
+
+    }
+
+    private static String cidadeAleatoriaDeUmBanco(int q){
+        String s[] = {"Ponte Nova", "Acapulco", "Itabirito", "Nova York", "Joao Monlevade", "Ubá", "São Paulo", "Ribeirão Preto", "Juíz de Fora", "bola"};
+        int tamanho = q;
+        String retorno = "";
+        for(int i =0; i< tamanho; i++){
+            retorno = s[geraIntAleatorio()];
+        }
+        return retorno;
+    }
+    private static String stringAleatoriaDeUmBanco(int q){
+        String s[] = {"festa", "casa", "amarelo", "joao", "aniverario", "porta", "bebida", "quarto", "galpão", "bola"};
+        int tamanho = q;
         String retorno = "";
         for(int i =0; i< tamanho; i++){
             retorno += " " + s[geraIntAleatorio()];
         }
         return retorno;
     }
-    private static String stringAleatoriaDeUmBanco(){
-        String s[] = {"festa", "casa", "amarelo", "joao", "aniverario", "porta", "bebida", "quarto", "galpão", "bola"};
-        int tamanho = geraIntAleatorio()%3 + 1;
-        String retorno = "";
-        for(int i =0; i< tamanho; i++){
-            retorno += " " + s[geraIntAleatorio()];
-        }
-        return retorno;
+
+    private  static String stringAleatoriaDeUmBanco(){
+        return stringAleatoriaDeUmBanco(geraIntAleatorio()%3 + 1);
     }
 
 
     public static List<Organizador> geraOrganizadores(int quantidae){
         List<Organizador> organizadores = new ArrayList<>(quantidae);
-        FachadaSingleton fachadaSingleton = FachadaSingleton.getInstance();
+        Helper helper = Helper.getInstance();
         for(int i = 0; i<quantidae;i++){
             Organizador organizador = new Organizador();
             organizador.setNomeDaEmpresa(geraStringAleatoria());
@@ -77,9 +85,9 @@ public class PopulaBancoDeDados {
             organizador.setEndereco(geraStringAleatoria());
             Evento evento = geraEventoAleatorio(1).get(0);
             evento.setEventosId(organizador.getId());
-            fachadaSingleton.persiste(evento);
+            helper.persiste(evento);
             organizador.cadastraEvento(evento);
-            fachadaSingleton.persiste(organizador);
+            helper.persiste(organizador);
             organizadores.add(organizador);
         }
         return organizadores;
@@ -87,21 +95,21 @@ public class PopulaBancoDeDados {
 
     public static List<Evento> geraEventoAleatorio(int quantidade){
         List<Evento> eventos = new ArrayList<>(quantidade);
-        FachadaSingleton fachadaSingleton = FachadaSingleton.getInstance();
+        Helper helper = Helper.getInstance();
         for(int i = 0; i < quantidade; i++){
             Evento evento = new Evento();
-            evento.setNomeDoEvento(stringAleatoriaDeUmBanco());
-            evento.setLocal(cidadeAleatoriaDeUmBanco());
+            evento.setNomeDoEvento(stringAleatoriaDeUmBanco(1));
+            evento.setLocal(cidadeAleatoriaDeUmBanco(1));
             evento.setNumeroDeIngressos(geraIntAleatorio()*23);
             evento.setData(new Date(geraIntAleatorio(), geraIntAleatorio(), geraIntAleatorio()).toString());
             evento.setHorario(new Time(SystemClock.elapsedRealtime()).toString());
-            evento.setCidade(cidadeAleatoriaDeUmBanco());
+            evento.setCidade(cidadeAleatoriaDeUmBanco(1));
             evento.setFaixaEtaria(geraIntAleatorio());
             evento.setTag(stringAleatoriaDeUmBanco());
             evento.setTema(stringAleatoriaDeUmBanco());
             Ingresso ingresso = geraIngressoAleatorio(evento);
             evento.setIngressoId(ingresso.getId());
-            fachadaSingleton.persiste(ingresso);
+            helper.persiste(ingresso);
             evento.setIngresso(ingresso);
             eventos.add(evento);
         }

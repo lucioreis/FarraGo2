@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import inf221.trabalho.com.farrago.R;
-import inf221.trabalho.com.farrago.model.FachadaSingleton;
 
 public class BuscaTab extends Fragment {
     private int resource;

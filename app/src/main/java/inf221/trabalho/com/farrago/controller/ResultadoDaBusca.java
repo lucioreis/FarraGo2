@@ -8,18 +8,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 import inf221.trabalho.com.farrago.R;
-import inf221.trabalho.com.farrago.model.FachadaSingleton;
+import inf221.trabalho.com.farrago.model.Helper;
 import inf221.trabalho.com.farrago.model.Evento;
 import inf221.trabalho.com.farrago.model.Ingresso;
 import inf221.trabalho.com.farrago.util.PersonalizadoArrayAdapter;
 
 public class ResultadoDaBusca extends AppCompatActivity{
-    private FachadaSingleton fachadaSingleton;
+    private Helper helper;
     List<Evento> eventos;
     ListView listView;
     @Override
@@ -48,9 +47,9 @@ public class ResultadoDaBusca extends AppCompatActivity{
 //            ingressos.add(evento.getIngresso());
 //            eventos.add(evento);
 //            eventos.add(evento);
-        fachadaSingleton = FachadaSingleton.getInstance();
-        fachadaSingleton.search();
-        eventos.addAll(fachadaSingleton.getResultadosDaPesquisaPorEventos());
+        helper = Helper.getInstance();
+        helper.search();
+        eventos.addAll(helper.getResultadosDaPesquisaPorEventos());
         if(eventos.isEmpty()){
             Toast.makeText(this, "Nada Encontrado", Toast.LENGTH_SHORT).show();
         }

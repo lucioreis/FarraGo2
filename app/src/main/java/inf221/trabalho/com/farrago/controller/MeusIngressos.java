@@ -12,23 +12,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.j256.ormlite.dao.DaoManager;
-
-import org.greenrobot.greendao.annotation.ToMany;
-
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 import inf221.trabalho.com.farrago.R;
 import inf221.trabalho.com.farrago.model.Comprador;
-import inf221.trabalho.com.farrago.model.CompradorDao;
-import inf221.trabalho.com.farrago.model.DaoMaster;
-import inf221.trabalho.com.farrago.model.DaoSession;
-import inf221.trabalho.com.farrago.model.Evento;
-import inf221.trabalho.com.farrago.model.FachadaSingleton;
+import inf221.trabalho.com.farrago.model.Helper;
 import inf221.trabalho.com.farrago.model.Ingresso;
-import inf221.trabalho.com.farrago.util.MyApp;
 import inf221.trabalho.com.farrago.util.PersonalizadoArrayAdapter;
 
 public class MeusIngressos extends AppCompatActivity {
@@ -38,8 +28,8 @@ public class MeusIngressos extends AppCompatActivity {
         setContentView(R.layout.activity_meus_ingressos);
         final ListView listView = (ListView) findViewById(R.id.lista_de_ingressos);
         List<Ingresso> ingressos = new ArrayList<>();
-        FachadaSingleton fachadaSingleton = FachadaSingleton.getInstance();
-        Comprador comprador = fachadaSingleton.getComprador();
+        Helper helper = Helper.getInstance();
+        Comprador comprador = helper.getComprador();
         Log.i("qwert", ""+comprador.getCpf());
        // comprador.addIngresso(ingresso);
         if(comprador.getMeusIngressos() == null){
