@@ -131,7 +131,8 @@ public class Evento implements Serializable {
 	 * @param numeroDeIngressos
 	 */
 	public void setNumeroDeIngressos(int numeroDeIngressos) {
-		this.numeroDeIngressos = numeroDeIngressos;
+		if(numeroDeIngressos > 0)
+			this.numeroDeIngressos = numeroDeIngressos;
 	}
 
 	public void setCidade(String cidade) {

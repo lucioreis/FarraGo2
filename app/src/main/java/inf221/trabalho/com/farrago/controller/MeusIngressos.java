@@ -42,18 +42,19 @@ public class MeusIngressos extends AppCompatActivity {
         Comprador comprador = fachadaSingleton.getComprador();
         Log.i("qwert", ""+comprador.getCpf());
        // comprador.addIngresso(ingresso);
-        if(comprador.getMeusIngressos().isEmpty()){
+        if(comprador.getMeusIngressos() == null){
             Toast.makeText(this, "Voce ainda nao possui ingressos", Toast.LENGTH_LONG).show();
             finish();
+        }else {
+            PersonalizadoArrayAdapter arrayAdapter = new PersonalizadoArrayAdapter(comprador.getMeusIngressos(), this);
+            listView.setAdapter(arrayAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    createPopupImage(listView, position);
+                }
+            });
         }
-        PersonalizadoArrayAdapter arrayAdapter = new PersonalizadoArrayAdapter(comprador.getMeusIngressos(), this);
-        listView.setAdapter(arrayAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                createPopupImage(listView, position);
-            }
-        });
     }
 
     public void createPopupImage(ListView listView, int position) {

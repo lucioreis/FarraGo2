@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -36,6 +37,10 @@ public class ComprarIngresso extends AppCompatActivity {
     public void efetuarCompra(View v){
         Intent it = new Intent(this, Pagamento.class);
         if(evento != null)
+            if(evento.getNumeroDeIngressos() <= 0){
+                Toast.makeText(this, "Não há mais ingressos disponiveis", Toast.LENGTH_LONG).show();
+                finish();
+            }
             it.putExtra("eventoId", evento.getId());
         startActivity(it);
         finish();

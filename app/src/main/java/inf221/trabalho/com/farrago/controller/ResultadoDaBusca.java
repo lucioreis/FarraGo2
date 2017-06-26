@@ -51,6 +51,9 @@ public class ResultadoDaBusca extends AppCompatActivity{
         fachadaSingleton = FachadaSingleton.getInstance();
         fachadaSingleton.search();
         eventos.addAll(fachadaSingleton.getResultadosDaPesquisaPorEventos());
+        if(eventos.isEmpty()){
+            Toast.makeText(this, "Nada Encontrado", Toast.LENGTH_SHORT).show();
+        }
         PersonalizadoArrayAdapter arrayAdapter = new PersonalizadoArrayAdapter(eventos, this);
 
         listView.setAdapter(arrayAdapter);

@@ -46,6 +46,15 @@ public class PopulaBancoDeDados {
         return Math.abs(inteiro);
     }
 
+    private static String cidadeAleatoriaDeUmBanco(){
+        String s[] = {"Ponte Nova", "Acapulco", "Itabirito", "Nova York", "Joao Monlevade", "Ubá", "São Paulo", "Ribeirão Preto", "Juíz deFora", "bola"};
+        int tamanho = geraIntAleatorio()%3 + 1;
+        String retorno = "";
+        for(int i =0; i< tamanho; i++){
+            retorno += " " + s[geraIntAleatorio()];
+        }
+        return retorno;
+    }
     private static String stringAleatoriaDeUmBanco(){
         String s[] = {"festa", "casa", "amarelo", "joao", "aniverario", "porta", "bebida", "quarto", "galpão", "bola"};
         int tamanho = geraIntAleatorio()%3 + 1;
@@ -55,6 +64,7 @@ public class PopulaBancoDeDados {
         }
         return retorno;
     }
+
 
     public static List<Organizador> geraOrganizadores(int quantidae){
         List<Organizador> organizadores = new ArrayList<>(quantidae);
@@ -81,7 +91,7 @@ public class PopulaBancoDeDados {
         for(int i = 0; i < quantidade; i++){
             Evento evento = new Evento();
             evento.setNomeDoEvento(stringAleatoriaDeUmBanco());
-            evento.setLocal(stringAleatoriaDeUmBanco());
+            evento.setLocal(cidadeAleatoriaDeUmBanco());
             evento.setNumeroDeIngressos(geraIntAleatorio()*23);
             evento.setData(new Date(geraIntAleatorio(), geraIntAleatorio(), geraIntAleatorio()).toString());
             evento.setHorario(new Time(SystemClock.elapsedRealtime()).toString());
@@ -106,7 +116,7 @@ public class PopulaBancoDeDados {
         qrcodes[2] = R.drawable.qr3;
         qrcodes[3] = R.drawable.qr4;
         ingresso.setNomeDoEvento(evento.getNomeDoEvento());
-        ingresso.setCidade(geraStringAleatoria());
+        ingresso.setCidade(evento.getCidade());
         ingresso.setDisponivel(true);
         ingresso.setLote(geraIntAleatorio()*geraIntAleatorio()*geraIntAleatorio()*geraIntAleatorio());
         ingresso.setPreco((float)100);

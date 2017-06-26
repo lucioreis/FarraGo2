@@ -3,8 +3,11 @@ package inf221.trabalho.com.farrago.model;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.j256.ormlite.stmt.query.In;
+
+import org.greenrobot.greendao.annotation.Property;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -95,16 +98,13 @@ public final class FachadaSingleton extends Activity{
          return elementos;
      }
 
-     public List getListAll(Object o){
-          throw new UnsupportedOperationException();
-     }
 
     public <T> Object findById(Class<T> c, Long id) {
         return daoSession.getDao(c).loadByRowId(id);
     }
 
     private enum Filtro {
-         CIDADE(0), DATA(1), TAG(2), TEMA(3), PADRAO(4);
+         CIDADE(1), DATA(4), TAG(2), TEMA(3), PADRAO(0);
          private final int i;
          Filtro(int k){
              i = k;
@@ -114,18 +114,18 @@ public final class FachadaSingleton extends Activity{
      public void setSearchFiltro(String padrao, String cidade, String tema, String tag ){
          filtros = new String[5];
          if(padrao == null) padrao  = "";
-         filtros[Filtro.PADRAO.getI()] = padrao;
+         filtros[0] = padrao;
          if(cidade == null) cidade = "";
          filtros[Filtro.CIDADE.getI()] = cidade;
          filtros[Filtro.DATA.getI()] = "";
          if(tag == null) tag = "";
          filtros[Filtro.TAG.getI()] = tag;
-         if(padrao == null) padrao = "";
+         if(tema == null) padrao = "";
          filtros[Filtro.TEMA.getI()] = padrao;
      }
      public void search() {
          String whereClause = "";
-         if(resultadosDaBuscaPorEventos == null) resultadosDaBuscaPorEventos = new ArrayList<>();
+         if(resultadosDaBuscaPorEventos == null) resultadosDaBuscaPorEventos = new ArrayList<Evento>();
          if(!resultadosDaBuscaPorEventos.isEmpty()) resultadosDaBuscaPorEventos.clear();
 
          if(!filtros[Filtro.PADRAO.getI()].isEmpty())
@@ -138,20 +138,14 @@ public final class FachadaSingleton extends Activity{
              whereClause += "tag = ? ";
          if (!filtros[Filtro.TEMA.getI()].isEmpty())
              whereClause += "tema = ? ";
-         String[] aux = new String[5];
-         for (int i = 0; i < 5; i++){
-             if (! filtros[i].isEmpty()) aux[i] = filtros[i];
-         }
-         resultadosDaBuscaPorEventos = getListaDeEventos();
-       //  resultadosDaBuscaPorEventos = SugarRecord.find(Evento.class, whereClause, aux);
+         Log.i("errou", ""+filtros[0]);
+         resultadosDaBuscaPorEventos = daoSession.getEventoDao().loadAll();
+        // resultadosDaBuscaPorEventos = daoSession.getEventoDao().queryBuilder().where(EventoDao.Properties.NomeDoEvento.eq(filtros[0])).list();
      }
     public void searchUpdate(){
         resultadosDaBuscaPorEventos.clear();
         search();
     }
-     public List<Ingresso> getMeusIngressos(){
-         throw new UnsupportedOperationException();
-     }
      public List<Evento> getResultadosDaPesquisaPorEventos(){
          return resultadosDaBuscaPorEventos;
      }

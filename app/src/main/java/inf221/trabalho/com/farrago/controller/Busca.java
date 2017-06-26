@@ -95,7 +95,7 @@ public class Busca extends AppCompatActivity {
         if(tag.equals("Tag")) tag = "";
         Log.i("errouiop", padrao +" "+ cidade +" "+ tema +" "+ tag);
 
-        fachadaSingleton.setSearchFiltro(padrao,cidade, tema, tag);
+        fachadaSingleton.setSearchFiltro(padrao,cidade,null,null);
         fachadaSingleton.search();
         startActivity(new Intent(this, ResultadoDaBusca.class));
 
